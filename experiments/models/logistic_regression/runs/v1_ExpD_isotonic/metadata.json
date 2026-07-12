@@ -1,0 +1,22 @@
+{
+  "experiment_id": "ExpD_LR_isotonic_v1_42",
+  "classifier": "Logistic_Regression",
+  "dataset": "v1",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "isotonic",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T03:45:40.297812+00:00",
+  "training_time": 213.89031410217285,
+  "inference_time": 20.148515701293945,
+  "scaler_present": true,
+  "hyperparameters": {
+    "C": 1.0,
+    "class_weight": null,
+    "max_iter": 1000
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "feature_set": "C2",
+  "feature_set_version": "1.0",
+  "ordered_features": [
+    "argumentative_quality",
+    "conference",
+    "critical_rules_failed",
+    "experimental_strength",
+    "methodological_strength",
+    "overall_quality",
+    "risk_multiplier",
+    "scope_alignment",
+    "structural_completeness",
+    "total_rules_failed"
+  ],
+  "number_of_features": 10,
+  "target_column": "ground_truth"
+}

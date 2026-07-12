@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_RF_sigmoid_v1_42",
+  "classifier": "Random_Forest",
+  "dataset": "v1",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "sigmoid",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T03:46:54.385852+00:00",
+  "training_time": 30975.471019744873,
+  "inference_time": 96.79627418518066,
+  "scaler_present": false,
+  "hyperparameters": {
+    "class_weight": null,
+    "max_depth": 3,
+    "min_samples_leaf": 8,
+    "n_estimators": 100
+  }
+}

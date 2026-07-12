@@ -1,0 +1,80 @@
+{
+  "contract_name": "Tier C2 Feature Contract (Documentation & Verification Only)",
+  "runtime_authority": "packages/calibration/models/feature_schema.json",
+  "version": "1.0",
+  "ordered_features": [
+    "argumentative_quality",
+    "conference",
+    "critical_rules_failed",
+    "experimental_strength",
+    "methodological_strength",
+    "overall_quality",
+    "risk_multiplier",
+    "scope_alignment",
+    "structural_completeness",
+    "total_rules_failed"
+  ],
+  "feature_details": {
+    "argumentative_quality": {
+      "dtype": "float",
+      "source": "Layer 2 LLM Evaluation (Qwen)",
+      "expected_scale": "[0.0, 1.0]",
+      "description": "Quality and coherence of arguments presented in the manuscript."
+    },
+    "conference": {
+      "dtype": "float",
+      "source": "Layer 1 Metadata / Rule Checks",
+      "expected_scale": "{0.0, 1.0, 2.0}",
+      "description": "Categorical conference identifier/tier."
+    },
+    "critical_rules_failed": {
+      "dtype": "float",
+      "source": "Layer 1 Rule Checks",
+      "expected_scale": "[0.0, 3.0]",
+      "description": "Count of critical hard rules violated during Layer 1 verification."
+    },
+    "experimental_strength": {
+      "dtype": "float",
+      "source": "Layer 2 LLM Evaluation (Qwen)",
+      "expected_scale": "[0.0, 1.0]",
+      "description": "Rigor and depth of experimental validation reported."
+    },
+    "methodological_strength": {
+      "dtype": "float",
+      "source": "Layer 2 LLM Evaluation (Qwen)",
+      "expected_scale": "[0.0, 1.0]",
+      "description": "Soundness and reproducibility of methodology."
+    },
+    "overall_quality": {
+      "dtype": "float",
+      "source": "Layer 2 LLM Evaluation (Qwen)",
+      "expected_scale": "[0.0, 1.0]",
+      "description": "Overall holistic quality score assigned by the calibrated LLM."
+    },
+    "risk_multiplier": {
+      "dtype": "float",
+      "source": "Derived Interaction Feature",
+      "derivation_formula": "(1.0 - overall_quality) * total_rules_failed",
+      "expected_scale": "[0.0, 10.0]",
+      "description": "Dynamic compound risk score penalizing manuscripts with both low quality and rule violations."
+    },
+    "scope_alignment": {
+      "dtype": "float",
+      "source": "Layer 2 LLM Evaluation (Qwen)",
+      "expected_scale": "[0.0, 1.0]",
+      "description": "Alignment with topic scope and venue standards."
+    },
+    "structural_completeness": {
+      "dtype": "float",
+      "source": "Layer 2 LLM Evaluation (Qwen)",
+      "expected_scale": "[0.0, 1.0]",
+      "description": "Completeness of required sections (Abstract, Intro, Methods, Results, Conclusions)."
+    },
+    "total_rules_failed": {
+      "dtype": "float",
+      "source": "Layer 1 Rule Checks",
+      "expected_scale": "[0.0, 10.0]",
+      "description": "Total count of all rule checks failed across Layer 1."
+    }
+  }
+}

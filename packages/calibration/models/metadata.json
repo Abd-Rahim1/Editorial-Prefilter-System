@@ -1,0 +1,23 @@
+{
+  "experiment_id": "random_forest_C2_dataset_none",
+  "classifier": "Random_Forest",
+  "dataset": "dataset",
+  "feature_set": "C2",
+  "feature_set_version": "1.0",
+  "calibration_method": "none",
+  "prompt_version": "v5",
+  "llm_model": "qwen3:4b",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T14:57:50.870839+00:00",
+  "training_time": 45790.93647003174,
+  "inference_time": 27.733325958251953,
+  "scaler_present": false,
+  "hyperparameters": {
+    "class_weight": null,
+    "max_depth": 3,
+    "min_samples_leaf": 4,
+    "n_estimators": 150
+  }
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "manuscript_id": "GOLDEN-HIGH-QUALITY",
+    "layer1_rules": {
+      "total_rules_failed": 0,
+      "critical_rules_failed": 0,
+      "conference": 0
+    },
+    "layer2_scores": {
+      "argumentative_quality": 0.95,
+      "experimental_strength": 0.95,
+      "methodological_strength": 0.95,
+      "overall_quality": 0.95,
+      "scope_alignment": 0.95,
+      "structural_completeness": 0.95
+    },
+    "expected_risk_multiplier": 0.0,
+    "expected_decision": "peer_review"
+  },
+  {
+    "manuscript_id": "GOLDEN-BORDERLINE",
+    "layer1_rules": {
+      "total_rules_failed": 2,
+      "critical_rules_failed": 0,
+      "conference": 1
+    },
+    "layer2_scores": {
+      "argumentative_quality": 0.65,
+      "experimental_strength": 0.65,
+      "methodological_strength": 0.65,
+      "overall_quality": 0.65,
+      "scope_alignment": 0.65,
+      "structural_completeness": 0.65
+    },
+    "expected_risk_multiplier": 0.7,
+    "expected_decision": "manual_review"
+  },
+  {
+    "manuscript_id": "GOLDEN-LOW-QUALITY",
+    "layer1_rules": {
+      "total_rules_failed": 7,
+      "critical_rules_failed": 3,
+      "conference": 0
+    },
+    "layer2_scores": {
+      "argumentative_quality": 0.30,
+      "experimental_strength": 0.30,
+      "methodological_strength": 0.30,
+      "overall_quality": 0.30,
+      "scope_alignment": 0.30,
+      "structural_completeness": 0.30
+    },
+    "expected_risk_multiplier": 4.9,
+    "expected_decision": "manual_review"
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_XGB_none_qwen_35b_42",
+  "classifier": "XGBoost",
+  "dataset": "qwen_35b",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "none",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T04:19:45.552858+00:00",
+  "training_time": 13189.491510391235,
+  "inference_time": 6.255149841308594,
+  "scaler_present": false,
+  "hyperparameters": {
+    "learning_rate": 0.01,
+    "max_depth": 5,
+    "min_child_weight": 10,
+    "n_estimators": 100
+  }
+}

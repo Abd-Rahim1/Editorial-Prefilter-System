@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_XGB_sigmoid_dataset_42",
+  "classifier": "XGBoost",
+  "dataset": "dataset",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "sigmoid",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T03:35:06.864304+00:00",
+  "training_time": 10264.772653579712,
+  "inference_time": 24.468183517456055,
+  "scaler_present": false,
+  "hyperparameters": {
+    "learning_rate": 0.01,
+    "max_depth": 3,
+    "min_child_weight": 10,
+    "n_estimators": 100
+  }
+}

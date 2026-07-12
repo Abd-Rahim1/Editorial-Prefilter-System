@@ -1,0 +1,108 @@
+# ==============================================================================
+# MASTER GITIGNORE FOR EDITORIAL PRE-FILTER MONOREPO
+# ==============================================================================
+
+# --- Python Core Exclusions ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+*.venv/
+
+# --- IDEs, OS & Editor Caches ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Environment Variables & Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Local Databases & Dynamic Storage ---
+*.db
+*.db-journal
+*.db-wal
+storage/data.db*
+mlflow.db*
+
+# --- MLflow Experiment Registry & Local Logs ---
+mlruns/
+experiments/mlruns/
+experiments/logs/
+*.log
+
+# --- Large Model Artifacts & Checkpoints ---
+# Exclude bulky binary model weights and experiment outputs
+*.onnx
+*.h5
+*.pkl
+storage/models/
+experiments/results/
+
+# Preserve production lightweight classifier artifact and schema manifests
+!packages/calibration/models/*.json
+!packages/calibration/models/best_pipeline.joblib
+!packages/calibration/config/generated/*.json
+
+# --- Raw & Processed Datasets (Keep Local Only) ---
+data/
+storage/raw/
+storage/processed/
+storage/artifacts/
+storage/reports/
+storage/eda/
+*.csv
+*.xlsx
+# Preserve small evaluation leaderboard and comparison summary tables
+!experiments/evaluation_results/leaderboard.csv
+!experiments/evaluation_results/comparison_tables.xlsx
+
+# --- Temporary Manuscript Uploads ---
+apps/api/temp_manuscripts/
+
+# --- Compiled Thesis PDFs & Large Reports ---
+# Do not publish compiled thesis PDFs by default unless explicitly approved
+*.pdf
+!docs/**/*.pdf
+!experiments/evaluation_results/publication_figures/*.png
+
+# --- Frontend (Next.js & Node.js) ---
+node_modules/
+.next/
+out/
+coverage/
+.env*.local
+
+# --- Local Scratch & Archive Folders ---
+archive_local/
+scratch/
+archive/
+reports/New folder/

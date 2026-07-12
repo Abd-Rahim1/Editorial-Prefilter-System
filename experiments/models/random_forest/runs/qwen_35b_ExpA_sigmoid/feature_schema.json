@@ -1,0 +1,22 @@
+{
+  "feature_set": "A",
+  "feature_set_version": "1.0",
+  "ordered_features": [
+    "total_rules_failed",
+    "critical_rules_failed",
+    "rule_max_abstract_words_passed",
+    "rule_max_citations_from_any_journal_passed",
+    "rule_max_manuscript_words_passed",
+    "rule_max_missing_sections_passed",
+    "rule_max_pages_passed",
+    "rule_max_references_passed",
+    "rule_min_abstract_words_passed",
+    "rule_min_keywords_passed",
+    "rule_min_manuscript_words_passed",
+    "rule_min_ratio_recent_citations_passed",
+    "rule_min_references_passed",
+    "rule_min_section_words_passed"
+  ],
+  "number_of_features": 14,
+  "target_column": "ground_truth"
+}

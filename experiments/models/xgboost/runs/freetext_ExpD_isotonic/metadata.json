@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_XGB_isotonic_freetext_42",
+  "classifier": "XGBoost",
+  "dataset": "freetext",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "isotonic",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T04:04:25.758415+00:00",
+  "training_time": 18457.80301094055,
+  "inference_time": 48.7360954284668,
+  "scaler_present": false,
+  "hyperparameters": {
+    "learning_rate": 0.1,
+    "max_depth": 6,
+    "min_child_weight": 6,
+    "n_estimators": 300
+  }
+}

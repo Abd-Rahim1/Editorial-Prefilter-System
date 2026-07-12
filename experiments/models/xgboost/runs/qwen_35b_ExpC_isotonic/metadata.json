@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpC_XGB_isotonic_qwen_35b_42",
+  "classifier": "XGBoost",
+  "dataset": "qwen_35b",
+  "feature_set": "C",
+  "feature_set_version": "1.0",
+  "calibration_method": "isotonic",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T04:15:34.836828+00:00",
+  "training_time": 13195.159673690796,
+  "inference_time": 38.35558891296387,
+  "scaler_present": false,
+  "hyperparameters": {
+    "learning_rate": 0.01,
+    "max_depth": 3,
+    "min_child_weight": 10,
+    "n_estimators": 200
+  }
+}

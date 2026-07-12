@@ -1,0 +1,63 @@
+{
+  "policy_name": "Tier C2 Missing Value & Fallback Policy (Documentation Only)",
+  "runtime_authority": "packages/calibration/models/feature_schema.json",
+  "version": "1.0",
+  "fallback_rules": {
+    "strict_missing_check_enabled": false,
+    "nan_inf_sanitization_enabled": true,
+    "behavior_when_missing": "Use documented fallback default value below without aborting inference (unless strict_missing_check is set to true in caller)."
+  },
+  "default_values": {
+    "argumentative_quality": {
+      "default_value": 3.0,
+      "optional": true,
+      "rationale": "Neutral baseline score fallback if LLM evaluation omits argumentative quality."
+    },
+    "conference": {
+      "default_value": 0.0,
+      "optional": true,
+      "rationale": "Default to general conference tier."
+    },
+    "critical_rules_failed": {
+      "default_value": 0.0,
+      "optional": true,
+      "rationale": "Assume 0 critical rules failed if Layer 1 check is missing."
+    },
+    "experimental_strength": {
+      "default_value": 3.0,
+      "optional": true,
+      "rationale": "Neutral baseline score fallback if LLM evaluation omits experimental strength."
+    },
+    "methodological_strength": {
+      "default_value": 3.0,
+      "optional": true,
+      "rationale": "Neutral baseline score fallback if LLM evaluation omits methodological strength."
+    },
+    "overall_quality": {
+      "default_value": 3.0,
+      "optional": true,
+      "rationale": "Neutral baseline score fallback if LLM evaluation omits overall quality."
+    },
+    "risk_multiplier": {
+      "default_value": 0.0,
+      "optional": true,
+      "derivation_fallback": "(1.0 - overall_quality) * total_rules_failed",
+      "rationale": "Derived from overall_quality and total_rules_failed; fallback 0.0 if derivation errors."
+    },
+    "scope_alignment": {
+      "default_value": 3.0,
+      "optional": true,
+      "rationale": "Neutral baseline score fallback if LLM evaluation omits scope alignment."
+    },
+    "structural_completeness": {
+      "default_value": 3.0,
+      "optional": true,
+      "rationale": "Neutral baseline score fallback if LLM evaluation omits structural completeness."
+    },
+    "total_rules_failed": {
+      "default_value": 0.0,
+      "optional": true,
+      "rationale": "Assume 0 total rules failed if Layer 1 check is missing."
+    }
+  }
+}

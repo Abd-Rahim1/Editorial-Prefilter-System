@@ -1,0 +1,22 @@
+{
+  "experiment_id": "ExpA_LR_none_freetext_42",
+  "classifier": "Logistic_Regression",
+  "dataset": "freetext",
+  "feature_set": "A",
+  "feature_set_version": "1.0",
+  "calibration_method": "none",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T03:49:23.937509+00:00",
+  "training_time": 175.1253604888916,
+  "inference_time": 1.6529560089111328,
+  "scaler_present": true,
+  "hyperparameters": {
+    "C": 1.0,
+    "class_weight": "balanced",
+    "max_iter": 1000
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_RF_none_freetext_42",
+  "classifier": "Random_Forest",
+  "dataset": "freetext",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "none",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T04:03:13.453241+00:00",
+  "training_time": 44173.40612411499,
+  "inference_time": 18.82195472717285,
+  "scaler_present": false,
+  "hyperparameters": {
+    "class_weight": "balanced",
+    "max_depth": null,
+    "min_samples_leaf": 6,
+    "n_estimators": 100
+  }
+}

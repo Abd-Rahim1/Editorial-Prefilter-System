@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpC_XGB_none_freetext_42",
+  "classifier": "XGBoost",
+  "dataset": "freetext",
+  "feature_set": "C",
+  "feature_set_version": "1.0",
+  "calibration_method": "none",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T03:59:49.760694+00:00",
+  "training_time": 16405.07674217224,
+  "inference_time": 6.61158561706543,
+  "scaler_present": false,
+  "hyperparameters": {
+    "learning_rate": 0.1,
+    "max_depth": 4,
+    "min_child_weight": 10,
+    "n_estimators": 300
+  }
+}

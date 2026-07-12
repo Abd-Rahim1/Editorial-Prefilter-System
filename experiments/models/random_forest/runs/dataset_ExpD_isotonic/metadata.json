@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_RF_isotonic_dataset_42",
+  "classifier": "Random_Forest",
+  "dataset": "dataset",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "isotonic",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T03:34:14.867615+00:00",
+  "training_time": 23418.07246208191,
+  "inference_time": 61.310529708862305,
+  "scaler_present": false,
+  "hyperparameters": {
+    "class_weight": "balanced",
+    "max_depth": 3,
+    "min_samples_leaf": 10,
+    "n_estimators": 100
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "experiment_id": "ExpD_RF_none_qwen_35b_42",
+  "classifier": "Random_Forest",
+  "dataset": "qwen_35b",
+  "feature_set": "D",
+  "feature_set_version": "1.0",
+  "calibration_method": "none",
+  "prompt_version": "default",
+  "llm_model": "default",
+  "random_seed": 42,
+  "git_commit": "de30b15",
+  "mlflow_run_id": "",
+  "timestamp": "2026-07-08T04:18:39.428342+00:00",
+  "training_time": 35532.30118751526,
+  "inference_time": 34.871816635131836,
+  "scaler_present": false,
+  "hyperparameters": {
+    "class_weight": null,
+    "max_depth": 3,
+    "min_samples_leaf": 10,
+    "n_estimators": 200
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "feature_set": "B",
+  "feature_set_version": "1.0",
+  "ordered_features": [
+    "abstract_clarity",
+    "structural_completeness",
+    "methodological_strength",
+    "experimental_strength",
+    "argumentative_quality",
+    "scope_alignment",
+    "overall_quality"
+  ],
+  "number_of_features": 7,
+  "target_column": "ground_truth"
+}

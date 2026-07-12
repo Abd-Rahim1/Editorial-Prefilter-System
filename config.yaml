@@ -1,0 +1,22 @@
+# ====================================================================
+# MASTER CONFIGURATION FOR TFG PRE-FILTERING PIPELINE
+# ====================================================================
+
+database:
+  dbname: "editorial_prefilter"
+  user: "postgres"
+  password: "postgres123"
+  host: "localhost"
+  port: "5432"
+
+paths:
+  peerread_dir: "data/peerread"
+  output_dir: "data/processed"
+  master_csv: "data/processed/layer3_dataset.csv"
+
+qwen:
+  mode: "real"
+  
+  base_url: "http://localhost:11434/api/chat"
+  api_key: "ollama"
+  model_name: "qwen3:4b"     
