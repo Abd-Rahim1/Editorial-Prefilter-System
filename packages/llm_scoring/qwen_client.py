@@ -1,14 +1,19 @@
+import os
 import json
 import re
+import time
+import logging
 from typing import Dict, Any, Optional
 
 import requests
+
+logger = logging.getLogger("QwenClient")
 
 from llm_scoring.mock_qwen import run_mock_qwen_scoring
 from llm_scoring.prompts import get_prompt_builder
 
 
-QWEN_API_URL = "http://sinbad2ia.ujaen.es:8050/api/chat"
+QWEN_API_URL = os.getenv("OLLAMA_URL", "http://sinbad2ia.ujaen.es:8050/api/chat")
 
 
 def get_qwen_model() -> str:
@@ -92,6 +97,8 @@ def run_qwen_scoring(
     model: Optional[str] = None,
     llm_config: Optional[Dict] = None,
     prompt_config: Optional[Dict] = None,
+    timeout_sec: int = 120,
+    max_retries: int = 3,
 ) -> Dict[str, Any]:
     if mode not in ("mock", "real"):
         raise ValueError(f"Unsupported mode: {mode}")
@@ -158,17 +165,42 @@ def run_qwen_scoring(
         "stream": False,
     }
 
-    try:
-        response = requests.post(QWEN_API_URL, json=payload, timeout=20)
-        response.raise_for_status()
-        data = response.json()
-        content = data["message"]["content"]
-    except requests.exceptions.RequestException as e:
+    delay_sec = 5
+    last_error = None
+    content = None
+
+    prompt_char_len = len(prompt)
+    prompt_token_est = prompt_char_len // 4
+    logger.info(
+        f"Qwen request started | Model: {active_model} | Prompt length: {prompt_char_len} chars (~{prompt_token_est} tokens) | Timeout: {timeout_sec}s | Max retries: {max_retries}"
+    )
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            logger.info(f"Sending Qwen request | Attempt {attempt} of {max_retries}...")
+            response = requests.post(QWEN_API_URL, json=payload, timeout=timeout_sec)
+            response.raise_for_status()
+            data = response.json()
+            content = data["message"]["content"]
+            logger.info(f"Qwen request succeeded on attempt {attempt} | Raw response length: {len(content)} chars")
+            logger.debug(f"Raw response received:\n{content}")
+            break
+        except requests.exceptions.RequestException as e:
+            last_error = e
+            logger.warning(f"Qwen request attempt {attempt}/{max_retries} failed: {str(e)}")
+            if attempt < max_retries:
+                logger.info(f"Waiting {delay_sec} seconds before retry attempt {attempt + 1}...")
+                time.sleep(delay_sec)
+
+    if content is None:
+        err_msg = f"API Request failed after {max_retries} attempts. Last error: {str(last_error)}"
+        logger.error(f"{err_msg} | Returning exact fallback 0.50 scores with api_error=True and format_failure=True")
         return {
             "mode": "real",
             "api_error": True,
-            "error_message": f"API Request failed: {str(e)}",
-            # Neutral defaults so callers always have a complete score structure
+            "format_failure": True,
+            "error_message": err_msg,
+            # Neutral defaults so callers always have a complete score structure (not hidden!)
             "integrity_risk_score": 0.50,
             "structure_validity_score": 0.50,
             "content_coherence_score": 0.50,
@@ -186,6 +218,8 @@ def run_qwen_scoring(
                 "prompt_version": active_prompt_ver,
                 "input_payload": input_payload,
                 "model": active_model,
+                "timeout_used": timeout_sec,
+                "retries_attempted": max_retries,
             }
         }
 
@@ -199,6 +233,23 @@ def run_qwen_scoring(
                 l1_v["methodology_missing_confirmed"] = False
                 
         parsed["mode"] = "real"
+        
+        # Check if all critical semantic scores are present and numeric
+        score_keys = [
+            "abstract_clarity", "structural_completeness", "methodological_strength",
+            "experimental_strength", "argumentative_quality", "scope_alignment", "overall_quality"
+        ]
+        missing_or_invalid = [k for k in score_keys if not isinstance(parsed.get(k), (int, float))]
+        if missing_or_invalid or parsed.get("format_failure"):
+            parsed["format_failure"] = True
+            logger.warning(f"Parsed Qwen output has missing/invalid score keys ({missing_or_invalid}) or format_failure=True. Ensuring fallback defaults for missing keys.")
+            for k in score_keys:
+                if not isinstance(parsed.get(k), (int, float)):
+                    parsed[k] = 0.50
+        else:
+            if "format_failure" not in parsed:
+                parsed["format_failure"] = False
+
         parsed["_meta"] = {
             "mode": "real",
             "prompt_version": active_prompt_ver,
@@ -207,12 +258,23 @@ def run_qwen_scoring(
             "raw_output": content,
             "model": active_model,
         }
+
+        # Log clear summary of parsed scores and format_failure
+        parsed_summary = {k: parsed.get(k) for k in score_keys if k in parsed}
+        logger.info(
+            f"Qwen scoring successfully completed | format_failure: {parsed.get('format_failure')} | Parsed scores: {parsed_summary}"
+        )
+
         return parsed
 
     except (json.JSONDecodeError, ValueError) as parse_exc:
+        logger.error(
+            f"Failed to parse Qwen JSON output | parse_error: {str(parse_exc)} | format_failure=True | Raw output snippet: {content[:300]}..."
+        )
         return {
             "mode": "real",
             "parse_error": True,
+            "format_failure": True,
             "parse_error_detail": str(parse_exc),
             "raw_output": content,
             # Neutral defaults so callers always have a complete score structure.

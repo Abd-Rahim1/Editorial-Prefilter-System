@@ -5,11 +5,11 @@ from psycopg2.extras import RealDictCursor
 from pathlib import Path
 
 def get_connection():
-    db_user = "postgres"
-    db_password = "postgres123"
-    db_host = "localhost"
-    db_port = "5432"
-    db_name = "editorial_prefilter"
+    db_user = os.getenv("DATABASE_USER", "postgres")
+    db_password = os.getenv("DATABASE_PASSWORD", "postgres123")
+    db_host = os.getenv("DATABASE_HOST", "localhost")
+    db_port = os.getenv("DATABASE_PORT", "5432")
+    db_name = os.getenv("DATABASE_NAME", "editorial_prefilter")
     
     try:
         project_root = Path(__file__).resolve().parent.parent.parent

@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:16
+    container_name: editorial_prefilter_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+      POSTGRES_DB: editorial_prefilter
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d editorial_prefilter"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - editorial_network
+
+  api:
+    image: editorial-prefilter-api:latest
+    container_name: editorial_prefilter_api
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=editorial_prefilter
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres123
+      - ENVIRONMENT=development
+      - OLLAMA_URL=http://host.docker.internal:11434/api/chat
+    ports:
+      - "8000:8000"
+    command: ["uvicorn", "apps.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - app_storage:/app/storage
+    networks:
+      - editorial_network
+
+  web:
+    image: editorial-prefilter-web:latest
+    container_name: editorial_prefilter_web
+    environment:
+      - NODE_ENV=production
+      - API_URL=http://api:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    networks:
+      - editorial_network
+
+volumes:
+  pgdata:
+  app_storage:
+
+networks:
+  editorial_network:
+    driver: bridge
