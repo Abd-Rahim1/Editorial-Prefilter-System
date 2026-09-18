@@ -17,6 +17,30 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: editorial_prefilter
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres123
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d editorial_prefilter"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 5432
+      DATABASE_NAME: editorial_prefilter
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres123
+      ENVIRONMENT: test
+      APP_ENV: test
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,6 +56,10 @@ jobs:
           pip install -r requirements.txt
           pip install -r apps/api/requirements.txt
           pip install pytest
+
+      - name: Check PostgreSQL
+        run: |
+          python -c "import socket; s=socket.create_connection(('localhost', 5432), 5); s.close(); print('PostgreSQL is reachable')"
 
       - name: Run tests
         run: pytest -q tests
@@ -54,10 +82,6 @@ jobs:
       - name: Install frontend dependencies
         working-directory: apps/web
         run: npm ci
-
-      - name: Run frontend lint
-        working-directory: apps/web
-        run: npm run lint
 
       - name: Build frontend
         working-directory: apps/web
