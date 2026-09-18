@@ -61,6 +61,10 @@ jobs:
         run: |
           python -c "import socket; s=socket.create_connection(('localhost', 5432), 5); s.close(); print('PostgreSQL is reachable')"
 
+      - name: Initialize test database
+        run: |
+          python -c "from apps.api.config import Base, engine; from sqlalchemy import text; Base.metadata.create_all(bind=engine); conn=engine.connect(); conn.execute(text(\"INSERT INTO users (id, username) VALUES (1, 'ci-test-user') ON CONFLICT (id) DO NOTHING\")); conn.commit(); conn.close(); print('Test database initialized')"
+
       - name: Run tests
         run: pytest -q tests
 
@@ -129,3 +133,4 @@ jobs:
           tags: |
             ghcr.io/abd-rahim1/editorial-prefilter-web:latest
             ghcr.io/abd-rahim1/editorial-prefilter-web:${{ github.sha }}
+ | Set-Content -Path ".github/workflows/docker-ci.yml" -Encoding utf8

@@ -25,3 +25,4 @@ threadpoolctl==3.6.0
 tqdm==4.67.3
 tzdata==2026.1
 urllib3==2.6.3
+shap==0.52.0
